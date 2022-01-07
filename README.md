@@ -2,6 +2,8 @@
 
 ### 소스 파일 경로
 
-src/main
+src/main -> java/spms/servlets
 
 ### web.xml 파일 경로
+
+src/main ->
