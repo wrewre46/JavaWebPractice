@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 xmlns="http://xmlns.jcp.org/xml/ns/javaee" 
 xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd" 
 id="WebApp_ID" version="4.0">
@@ -44,6 +44,26 @@ id="WebApp_ID" version="4.0">
 			<param-value>study</param-value>
 		</init-param>
 	</servlet>
+		<servlet>
+		<servlet-name>MemberUpdateServlet</servlet-name>
+		<servlet-class>spms.servlets.MemberUpdateServlet</servlet-class>
+		<init-param>
+			<param-name>driver</param-name>
+			<param-value>com.mysql.jdbc.Driver</param-value>
+		</init-param>
+		<init-param>
+			<param-name>url</param-name>
+			<param-value>jdbc:mysql://localhost/studydb</param-value>
+		</init-param>
+		<init-param>
+			<param-name>username</param-name>
+			<param-value>study</param-value>
+		</init-param>
+		<init-param>
+			<param-name>password</param-name>
+			<param-value>study</param-value>
+		</init-param>
+	</servlet>
 	
 	<!-- 서블릿을 URL과 연결 -->
 	<servlet-mapping>
@@ -53,6 +73,10 @@ id="WebApp_ID" version="4.0">
 	<servlet-mapping>
 		<servlet-name>MemberAddServlet</servlet-name>
 		<url-pattern>/member/add</url-pattern>
+	</servlet-mapping> 
+	<servlet-mapping>
+		<servlet-name>MemberUpdateServlet</servlet-name>
+		<url-pattern>/member/update</url-pattern>
 	</servlet-mapping> 
 
   <welcome-file-list>

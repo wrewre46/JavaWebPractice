@@ -45,10 +45,12 @@ public class MemberListServlet extends GenericServlet{
 			out.println("<h1>회원 목록</h1>");
 			out.println("<p><a href='add'>신규 회원</a></p>");
 			while(rs.next()) {
-				out.println(rs.getInt("MNO")+ "," +
-				rs.getString("MNAME") +","+
-				rs.getString("EMAIL") +","+
-				rs.getDate("CRE_DATE")+ "<BR>"
+				out.println(
+					rs.getInt("MNO") + "," +
+					"<a href='update?no=" + rs.getInt("MNO") + "'>" +
+					rs.getString("MNAME") + "</a>," +
+					rs.getString("EMAIL") + "," + 
+					rs.getDate("CRE_DATE") + "<br>"
 				);
 			}
 			 out.println("</body></html>");
