@@ -6,6 +6,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -41,11 +42,12 @@ public class MemberAddServlet extends HttpServlet {
 		PreparedStatement stmt = null;
 
 		try {
-			Class.forName(this.getInitParameter("driver"));
+			ServletContext ctx=this.getServletContext();
+			Class.forName(ctx.getInitParameter("driver"));//2. 드라이버를 사용하여 MySQL 서버와 연결
 			conn = DriverManager.getConnection(
-					this.getInitParameter("url"),
-					this.getInitParameter("username"),
-					this.getInitParameter("password"));
+					ctx.getInitParameter("url"),
+					ctx.getInitParameter("username"),
+					ctx.getInitParameter("password"));
 			stmt = conn.prepareStatement(
 					"INSERT INTO MEMBERS(EMAIL,PWD,MNAME,CRE_DATE,MOD_DATE)"
 					+ " VALUES (?,?,?,NOW(),NOW())");

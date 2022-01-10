@@ -8,6 +8,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
 
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -21,10 +22,12 @@ public class MemberUpdateServlet extends HttpServlet{
 		Statement stmt = null;
 		ResultSet rs = null;
 		try {
-			Class.forName(this.getInitParameter("driver"));
-			conn = DriverManager.getConnection(this.getInitParameter("url"), 
-					this.getInitParameter("username"),
-					this.getInitParameter("password"));
+			ServletContext ctx=this.getServletContext();
+			Class.forName(ctx.getInitParameter("driver"));//2. 드라이버를 사용하여 MySQL 서버와 연결
+			conn = DriverManager.getConnection(
+					ctx.getInitParameter("url"),
+					ctx.getInitParameter("username"),
+					ctx.getInitParameter("password"));
 			stmt = conn.createStatement();
 			rs = stmt.executeQuery(
 					"select MNO,EMAIL,MNAME,CRE_DATE from MEMBERS" + " where MNO=" + request.getParameter("no"));
@@ -59,9 +62,12 @@ public class MemberUpdateServlet extends HttpServlet{
 		Connection conn = null;
 		PreparedStatement stmt = null;
 		try {
-			Class.forName(this.getInitParameter("driver"));
-			conn=DriverManager.getConnection(this.getInitParameter("url"), this.getInitParameter("username")
-					,this.getInitParameter("password"));
+			ServletContext ctx=this.getServletContext();
+			Class.forName(ctx.getInitParameter("driver"));//2. 드라이버를 사용하여 MySQL 서버와 연결
+			conn = DriverManager.getConnection(
+					ctx.getInitParameter("url"),
+					ctx.getInitParameter("username"),
+					ctx.getInitParameter("password"));
 			stmt = conn.prepareStatement("UPDATE MEMBERS SET EMAIL=?,MNAME=?,MOD_DATE=now()"+"WHERE MNO=?");
 			stmt.setString(1, request.getParameter("email"));
 			stmt.setString(2, request.getParameter("name"));

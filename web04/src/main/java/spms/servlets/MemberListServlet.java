@@ -8,6 +8,7 @@ import java.sql.ResultSet;
 import java.sql.Statement;
 
 import javax.servlet.GenericServlet;
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
@@ -25,13 +26,13 @@ public class MemberListServlet extends GenericServlet{
 		//	DriverManager.registerDriver(new com.mysql.jdbc.Driver());
 		//	ServletConfig config = this.getServletConfig();
 		//	Class.forName(config.getInitParameter("driver"));	
-			Class.forName(this.getInitParameter("driver"));
-			
-			//2. 드라이버를 사용하여 MySQL 서버와 연결
+		//	Class.forName(this.getInitParameter("driver"));
+			ServletContext ctx=this.getServletContext();
+			Class.forName(ctx.getInitParameter("driver"));//2. 드라이버를 사용하여 MySQL 서버와 연결
 			con = DriverManager.getConnection(
-					this.getInitParameter("url"),
-					this.getInitParameter("username"),
-					this.getInitParameter("password"));
+					ctx.getInitParameter("url"),
+					ctx.getInitParameter("username"),
+					ctx.getInitParameter("password"));
 			//3. 커넥션 객체로부터 SQL을 던질 객체를 준비
 			stmt = con.createStatement();
 			//4. SQL을 던지는 객체를 사용하여 서버에 질의!
