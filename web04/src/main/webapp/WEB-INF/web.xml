@@ -4,57 +4,23 @@ xmlns="http://xmlns.jcp.org/xml/ns/javaee"
 xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd" 
 id="WebApp_ID" version="4.0">
   <display-name>web04</display-name>
-	<context-param>
-			<param-name>driver</param-name>
-			<param-value>com.mysql.jdbc.Driver</param-value>
-	</context-param>
-		<context-param>
-			<param-name>url</param-name>
-			<param-value>jdbc:mysql://localhost/studydb</param-value>
-		</context-param>
-	<context-param>
-			<param-name>username</param-name>
-			<param-value>study</param-value>
+<context-param>
+		<param-name>driver</param-name>
+		<param-value>com.mysql.jdbc.Driver</param-value>
 	</context-param>
 	<context-param>
-			<param-name>password</param-name>
-			<param-value>study</param-value>
-		</context-param>
-	<servlet>
-		<servlet-name>MemberListServlet</servlet-name>
-		<servlet-class>spms.servlets.MemberListServlet</servlet-class>
-		
-	</servlet>
-	<servlet>
-		<servlet-name>MemberAddServlet</servlet-name>
-		<servlet-class>spms.servlets.MemberAddServlet</servlet-class>
-	</servlet>
-		<servlet>
-		<servlet-name>MemberUpdateServlet</servlet-name>
-		<servlet-class>spms.servlets.MemberUpdateServlet</servlet-class>
-	</servlet>
+		<param-name>url</param-name>
+		<param-value>jdbc:mysql://localhost/studydb</param-value>
+	</context-param>
+	<context-param>
+		<param-name>username</param-name>
+		<param-value>study</param-value>
+	</context-param>
+	<context-param>
+		<param-name>password</param-name>
+		<param-value>study</param-value>
+	</context-param>
 	
-	<!-- 서블릿을 URL과 연결 -->
-	<servlet-mapping>
-		<servlet-name>MemberListServlet</servlet-name>
-		<url-pattern>/member/list</url-pattern>
-	</servlet-mapping>
-	<servlet-mapping>
-		<servlet-name>MemberAddServlet</servlet-name>
-		<url-pattern>/member/add</url-pattern>
-	</servlet-mapping> 
-	<servlet-mapping>
-		<servlet-name>MemberUpdateServlet</servlet-name>
-		<url-pattern>/member/update</url-pattern>
-	</servlet-mapping> 
-	<filter>
-		<filter-name>CharacterEncodingFilter</filter-name>
-		<filter-class>filters.CharacterEncodingFilter</filter-class>
-	</filter>
-	<filter-mapping>
-		<filter-name>CharacterEncodingFilter</filter-name>
-		<url-pattern>/*</url-pattern>
-	</filter-mapping>
   <welcome-file-list>
     <welcome-file>index.html</welcome-file>
     <welcome-file>index.htm</welcome-file>

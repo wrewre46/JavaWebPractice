@@ -10,10 +10,11 @@ import java.sql.Statement;
 
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
+@WebServlet("/member/update")
 @SuppressWarnings("serial")
 public class MemberUpdateServlet extends HttpServlet{
 	@Override
@@ -45,8 +46,12 @@ public class MemberUpdateServlet extends HttpServlet{
 				" value='" + rs.getString("EMAIL")  + "'><br>");
 			out.println("가입일: " + rs.getDate("CRE_DATE") + "<br>");
 			out.println("<input type='submit' value='저장'>");
+			out.println("<input type='button' value='삭제'" + 
+					"onclick='location.href=\"delete?no=" + 
+					request.getParameter("no") + "\";'>");
 			out.println("<input type='button' value='취소'" + 
 				" onclick='location.href=\"list\"'>");
+			
 			out.println("</form>");
 			out.println("</body></html>");
 		}catch (Exception e) {
