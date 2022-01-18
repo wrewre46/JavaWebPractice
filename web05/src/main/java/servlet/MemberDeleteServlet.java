@@ -1,4 +1,4 @@
-package vo;
+package servlet;
 
 import java.io.IOException;
 import java.sql.Connection;
@@ -22,12 +22,9 @@ public class MemberDeleteServlet extends HttpServlet{
 	Statement stmt = null;
 	
 	try {
-		ServletContext ctx=this.getServletContext();
-		Class.forName(ctx.getInitParameter("driver"));//2. 드라이버를 사용하여 MySQL 서버와 연결
-		conn = DriverManager.getConnection(
-				ctx.getInitParameter("url"),
-				ctx.getInitParameter("username"),
-				ctx.getInitParameter("password"));
+		ServletContext sc=this.getServletContext();
+		Class.forName(sc.getInitParameter("driver"));//2. 드라이버를 사용하여 MySQL 서버와 연결
+		conn=(Connection) sc.getAttribute("conn");
 		stmt = conn.createStatement();
 		stmt.executeUpdate(
 				"DELETE FROM MEMBERS WHERE MNO="+

@@ -1,4 +1,4 @@
-package vo;
+package servlet;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -23,12 +23,9 @@ public class MemberUpdateServlet extends HttpServlet{
 		Statement stmt = null;
 		ResultSet rs = null;
 		try {
-			ServletContext ctx=this.getServletContext();
-			Class.forName(ctx.getInitParameter("driver"));//2. 드라이버를 사용하여 MySQL 서버와 연결
-			conn = DriverManager.getConnection(
-					ctx.getInitParameter("url"),
-					ctx.getInitParameter("username"),
-					ctx.getInitParameter("password"));
+			ServletContext sc=this.getServletContext();
+			Class.forName(sc.getInitParameter("driver"));//2. 드라이버를 사용하여 MySQL 서버와 연결
+			conn=(Connection) sc.getAttribute("conn");
 			stmt = conn.createStatement();
 			rs = stmt.executeQuery(
 					"select MNO,EMAIL,MNAME,CRE_DATE from MEMBERS" + " where MNO=" + request.getParameter("no"));
@@ -63,12 +60,9 @@ public class MemberUpdateServlet extends HttpServlet{
 		Connection conn = null;
 		PreparedStatement stmt = null;
 		try {
-			ServletContext ctx=this.getServletContext();
-			Class.forName(ctx.getInitParameter("driver"));//2. 드라이버를 사용하여 MySQL 서버와 연결
-			conn = DriverManager.getConnection(
-					ctx.getInitParameter("url"),
-					ctx.getInitParameter("username"),
-					ctx.getInitParameter("password"));
+			ServletContext sc=this.getServletContext();
+			Class.forName(sc.getInitParameter("driver"));//2. 드라이버를 사용하여 MySQL 서버와 연결
+			conn=(Connection) sc.getAttribute("conn");
 			stmt = conn.prepareStatement("UPDATE MEMBERS SET EMAIL=?,MNAME=?,MOD_DATE=now()"+"WHERE MNO=?");
 			stmt.setString(1, request.getParameter("email"));
 			stmt.setString(2, request.getParameter("name"));
