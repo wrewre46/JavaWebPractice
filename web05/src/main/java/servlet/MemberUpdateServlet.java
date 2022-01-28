@@ -8,6 +8,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -47,8 +48,11 @@ public class MemberUpdateServlet extends HttpServlet{
 				" onclick='location.href=\"list\"'>");
 			out.println("</form>");
 			out.println("</body></html>");
-		}catch (Exception e) {
-			throw new ServletException(e);
+		}catch (Exception E) {
+			E.printStackTrace();
+			request.setAttribute("error",E);
+			RequestDispatcher rd = request.getRequestDispatcher("/Error.jsp");
+			rd.forward(request, response);
 		}  finally {
 			try {if (rs != null) rs.close();} catch(Exception e) {}
 			try {if (stmt != null) stmt.close();} catch(Exception e) {}
@@ -69,8 +73,11 @@ public class MemberUpdateServlet extends HttpServlet{
 			stmt.setInt(3, Integer.parseInt(request.getParameter("no")));
 			stmt.executeUpdate();
 			response.sendRedirect("list");
-		}catch (Exception e) {
-			throw new ServletException(e);
+		}catch (Exception E) {
+			E.printStackTrace();
+			request.setAttribute("error",E);
+			RequestDispatcher rd = request.getRequestDispatcher("/Error.jsp");
+			rd.forward(request, response);
 		}finally {
 			try {if(stmt !=null)stmt.close();} catch(Exception e) {}
 			try {if(conn !=null)conn.close();} catch(Exception e) {}

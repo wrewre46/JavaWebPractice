@@ -2,7 +2,6 @@ package servlet;
 
 import java.io.IOException;
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
@@ -15,6 +14,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import dao.MemberDao;
 import vo.Member;
 @WebServlet("/member/list")
 @SuppressWarnings("serial")
@@ -27,30 +27,18 @@ public class MemberListServlet extends HttpServlet{
 		ResultSet rs = null;
 		try {
 			ServletContext sc = this.getServletContext();
-			Class.forName(sc.getInitParameter("driver"));
 			conn=(Connection) sc.getAttribute("conn");
-			stmt = conn.createStatement();
-			rs=stmt.executeQuery(
-					"SELECT MNO,MNAME,EMAIL,CRE_DATE"+
-					" FROM MEMBERS" +
-					" ORDER BY MNO ASC");
+			MemberDao memberDao = new MemberDao();
+			memberDao.setConnection(conn);
+			request.setAttribute("members", memberDao.selectList());
 			response.setContentType("text/html; charset=UTF-8");
-			ArrayList<Member> members = new ArrayList<Member>();
-			// 데이터베이스에서 회원 정보를 가져와 Member에 담는다.
-			// 그리고 Member객체를 ArrayList에 추가한다.
-			while(rs.next()) {
-				members.add(new Member().setNo(rs.getInt("MNO"))
-						                .setName(rs.getString("MNAME"))
-						                .setEmail(rs.getString("EMAIL"))
-						                .setCreatedDate(rs.getDate("CRE_DATE")));
-			}
-			//request에 회원 목록 데이터 보관한다.
-			request.setAttribute("members", members);
-			//JSP로 출력을 위임한다.
+			
+			
 			RequestDispatcher rd=request.getRequestDispatcher("/member/MemberList.jsp");
 			rd.include(request, response);
 		}catch(Exception E) {
 			//throw new ServletException(E);
+			E.printStackTrace();
 			request.setAttribute("error",E);
 			RequestDispatcher rd = request.getRequestDispatcher("/Error.jsp");
 			rd.forward(request, response);

@@ -6,6 +6,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -64,8 +65,11 @@ public class MemberAddServlet extends HttpServlet {
 			//리프래시 정보를 응답 헤더에 추가
 			//response.setHeader("Refresh", "1;url=list");
 			//response.addHeader("Refresh", "1;url=list");
-		} catch (Exception e) {
-			throw new ServletException(e);
+		} catch (Exception E) {
+			E.printStackTrace();
+			request.setAttribute("error",E);
+			RequestDispatcher rd = request.getRequestDispatcher("/Error.jsp");
+			rd.forward(request, response);
 			
 		} finally {
 			try {if (stmt != null) stmt.close();} catch(Exception e) {}
