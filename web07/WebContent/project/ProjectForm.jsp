@@ -40,7 +40,7 @@ label {
   type='text' name='tags' placeholder="예)태그1 태그2 태그3" size="50"></li>
 </ul>
 <input type='submit' value='추가'>
-<input type='reset' value='취소'>
+<input type='reset' value='취소' onclick='location.href="list.do"'>
 </form>
 <jsp:include page="/Tail.jsp"/>
 </body>
